@@ -5,9 +5,9 @@ namespace Circli\WebCore\Middleware;
 use Psr\Http\Server\MiddlewareInterface;
 
 /**
- * @implements \IteratorAggregate<string|MiddlewareInterface>
+ * @implements \IteratorAggregate<class-string<MiddlewareInterface>|MiddlewareInterface>
  */
-final class Container implements \IteratorAggregate
+final class Container implements \IteratorAggregate, \Countable
 {
     /** @var array<int, array<int, string|MiddlewareInterface>> */
     private array $data = [];
@@ -62,5 +62,10 @@ final class Container implements \IteratorAggregate
         }
 
         return new \ArrayIterator(array_merge(...$tmp));
+    }
+
+    public function count(): int
+    {
+        return count($this->data);
     }
 }
