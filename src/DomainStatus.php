@@ -6,4 +6,5 @@ interface DomainStatus extends \PayloadInterop\DomainStatus
 {
     public const FAILURE = 'FAILURE';
     public const REDIRECT = 'REDIRECT';
+    public const CONFLICT = 'CONFLICT';
 }

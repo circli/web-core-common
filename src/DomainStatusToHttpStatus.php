@@ -19,6 +19,7 @@ final class DomainStatusToHttpStatus
         DomainStatus::FAILURE => 400,
         DomainStatus::UNAUTHORIZED => 403,
         DomainStatus::NOT_FOUND => 404,
+        DomainStatus::CONFLICT => 409,
         DomainStatus::INVALID => 422,
         DomainStatus::ERROR => 500,
     ];
