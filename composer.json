@@ -20,7 +20,8 @@
     "require-dev": {
         "roave/security-advisories": "dev-master",
         "phpunit/phpunit": "~9.0",
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10",
+        "starburst/contract": "dev-main"
     },
     "autoload": {
         "psr-4": {
