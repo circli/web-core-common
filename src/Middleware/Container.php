@@ -9,7 +9,7 @@ use Psr\Http\Server\MiddlewareInterface;
  */
 final class Container implements \IteratorAggregate, \Countable
 {
-    /** @var array<int, array<int, string|MiddlewareInterface>> */
+    /** @var array<int, array<int, class-string|MiddlewareInterface>> */
     private array $data = [];
 
     public const DEFAULT_PRIORITY = 500;
@@ -17,7 +17,7 @@ final class Container implements \IteratorAggregate, \Countable
     private const MIN_POST_PRIORITY = 1000;
 
     /**
-     * @param string[]|MiddlewareInterface[] $middlewares
+     * @param class-string[]|MiddlewareInterface[] $middlewares
      */
     public function __construct(iterable $middlewares = [])
     {
@@ -26,6 +26,9 @@ final class Container implements \IteratorAggregate, \Countable
         }
     }
 
+    /**
+     * @param MiddlewareInterface|class-string $middleware
+     */
     public function insert(MiddlewareInterface|string $middleware, int $priority): void
     {
         if (!isset($this->data[$priority])) {
@@ -34,6 +37,9 @@ final class Container implements \IteratorAggregate, \Countable
         $this->data[$priority][] = $middleware;
     }
 
+    /**
+     * @param MiddlewareInterface|class-string $middleware
+     */
     public function addPreRouter(MiddlewareInterface|string $middleware, int $priority = self::DEFAULT_PRIORITY): void
     {
         if ($priority > self::MAX_PRE_PRIORITY) {
@@ -43,6 +49,9 @@ final class Container implements \IteratorAggregate, \Countable
         $this->insert($middleware, $priority);
     }
 
+    /**
+     * @param MiddlewareInterface|class-string $middleware
+     */
     public function addPostRouter(MiddlewareInterface|string $middleware, int $priority = 2000): void
     {
         if ($priority < self::MIN_POST_PRIORITY) {
@@ -52,7 +61,10 @@ final class Container implements \IteratorAggregate, \Countable
         $this->insert($middleware, $priority);
     }
 
-    public function getIterator()
+    /**
+     * @return \ArrayIterator<array-key, class-string|MiddlewareInterface>
+     */
+    public function getIterator(): \ArrayIterator
     {
         $data = $this->data;
         ksort($data);
